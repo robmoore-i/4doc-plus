@@ -1,0 +1,10 @@
+site_name: Gradle Docs
+site_url: https://example.com
+nav:
+    - Home: index.md
+    - About: about.md
+theme: 
+  name: material
+markdown_extensions:
+  - toc:
+      permalink: true
