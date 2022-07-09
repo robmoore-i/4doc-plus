@@ -1,0 +1,12 @@
+name: gradle
+region: sgp
+static_sites:
+- environment_slug: html
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: robmoore-i/4doc-plus
+  name: gradle
+  routes:
+  - path: /
+  source_dir: gradle/site
