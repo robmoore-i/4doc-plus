@@ -1,10 +1,24 @@
-site_name: Gradle Docs
-site_url: https://example.com
+site_name: Gradle Docs Abbridged
+site_url: https://gradle-dr4n3.ondigitalocean.app/
 nav:
-    - Home: index.md
-    - About: about.md
+  - Home: index.md
+  - Reference:
+    - glossary.md
+    - javadoc.md
+  - How-to-guides:
+    - how-to-guides/working-with-files.md
+    - how-to-guides/invoking-shell-commands.md
+  - Explanations: explanations.md
+  - Tutorials: tutorials.md
+  - Conceptual Overviews: conceptual-overviews.md
+  - FAQs: faqs.md
+  - Troubleshooting: troubleshooting.md
+  - Best Practices: best-practices.md
+  - Cheat Sheet: cheat-sheet.md
 theme: 
   name: material
+  features:
+    - navigation.expand
 markdown_extensions:
-  - toc:
-      permalink: true
+  toc:
+    permalink: true

@@ -1,17 +1,5 @@
-# Welcome to MkDocs
+# Abridged Gradle Docs by Rob
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## Experimenting with the extended 4doc model
 
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+This site is an experiment in structuring documentation according to an extended version of the 4doc model.

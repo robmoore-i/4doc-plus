@@ -1,12 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://example.com/</loc>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/</loc>
          <lastmod>2022-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/about/</loc>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/best-practices/</loc>
+         <lastmod>2022-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/cheat-sheet/</loc>
+         <lastmod>2022-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/conceptual-overviews/</loc>
+         <lastmod>2022-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/explanations/</loc>
+         <lastmod>2022-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/faqs/</loc>
+         <lastmod>2022-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/glossary/</loc>
+         <lastmod>2022-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/javadoc/</loc>
+         <lastmod>2022-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/troubleshooting/</loc>
+         <lastmod>2022-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/tutorials/</loc>
+         <lastmod>2022-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/how-to-guides/invoking-shell-commands/</loc>
+         <lastmod>2022-07-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gradle-dr4n3.ondigitalocean.app/how-to-guides/working-with-files/</loc>
          <lastmod>2022-07-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
