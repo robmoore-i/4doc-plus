@@ -1,45 +1,33 @@
-tasks.register("mkdocsServe") {
+fun Task.shell(cmd: List<String>) {
   doFirst {
     exec {
-      commandLine(listOf("mkdocs", "serve"))
+      commandLine(cmd)
     }
   }
 }
 
+tasks.register("mkdocsServe") {
+  shell(listOf("mkdocs", "serve"))
+}
+
 val mkdocsBuild by tasks.registering {
-  doFirst {
-    exec {
-      commandLine(listOf("mkdocs", "build"))
-    }
-  }
+  shell(listOf("mkdocs", "build"))
 }
 
 val dockerBuild by tasks.registering {
   mustRunAfter(mkdocsBuild)
-  doFirst {
-    exec {
-      commandLine(listOf("docker", "build", ".", "-t", "gradle-4doc"))
-    }
-  }
+  shell(listOf("docker", "build", ".", "-t", "gradle-4doc"))
 }
 
 val containerName = "gradle-4doc-plus"
 
 val dockerRun by tasks.registering {
   mustRunAfter(dockerBuild)
-  doFirst {
-    exec {
-      commandLine(listOf("docker", "run", "-d", "-p", "8080:8080", "--name", containerName, "gradle-4doc"))
-    }
-  }
+  shell(listOf("docker", "run", "-d", "-p", "8080:8080", "--name", containerName, "gradle-4doc"))
 }
 
-tasks.register("dockerClean") {
-  doFirst {
-    exec {
-      commandLine(listOf("docker", "rm", "-f", containerName))
-    }
-  }
+tasks.register("dockerDown") {
+  shell(listOf("docker", "rm", "-f", containerName))
 }
 
 tasks.register("dockerUp") {
