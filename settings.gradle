@@ -1,0 +1,3 @@
+rootProject.name = "4doc-plus"
+
+include("gradle")

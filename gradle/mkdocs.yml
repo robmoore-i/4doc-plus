@@ -8,7 +8,13 @@ nav:
   - How-to-guides:
     - how-to-guides/working-with-files.md
     - how-to-guides/invoking-shell-commands.md
-  - Explanations: explanations.md
+  - Explanations:
+    - explanations/build-phases.md
+    - explanations/task-graph.md
+    - explanations/multi-project-builds.md
+    - explanations/up-to-date-checking.md
+    - explanations/task-output-caching.md
+    - explanations/configuration-caching.md
   - Tutorials: tutorials.md
   - Conceptual Overviews: conceptual-overviews.md
   - FAQs: faqs.md
