@@ -8,21 +8,21 @@
       
       
       
-        <link rel="canonical" href="https://gradle-dr4n3.ondigitalocean.app/tutorials/">
+        <link rel="canonical" href="https://gradle-dr4n3.ondigitalocean.app/tutorials/migrate-buildSrc-to-included-build-plugins/">
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.8">
     
     
       
-        <title>Tutorials - Gradle Docs Abbridged</title>
+        <title>migrate buildSrc to included build plugins - Gradle Docs Abbridged</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1d29e8d0.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.1d29e8d0.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
         
       
       
@@ -38,7 +38,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -61,11 +61,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#tutorials" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -76,7 +71,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Gradle Docs Abbridged" class="md-header__button md-logo" aria-label="Gradle Docs Abbridged" data-md-component="logo">
+    <a href="../.." title="Gradle Docs Abbridged" class="md-header__button md-logo" aria-label="Gradle Docs Abbridged" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -95,7 +90,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tutorials
+              migrate buildSrc to included build plugins
             
           </span>
         </div>
@@ -162,7 +157,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Gradle Docs Abbridged" class="md-nav__button md-logo" aria-label="Gradle Docs Abbridged" data-md-component="logo">
+    <a href="../.." title="Gradle Docs Abbridged" class="md-nav__button md-logo" aria-label="Gradle Docs Abbridged" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -181,7 +176,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         Home
       </a>
     </li>
@@ -222,7 +217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../glossary/" class="md-nav__link">
+      <a href="../../glossary/" class="md-nav__link">
         Glossary
       </a>
     </li>
@@ -236,7 +231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../javadoc/" class="md-nav__link">
+      <a href="../../javadoc/" class="md-nav__link">
         Javadoc
       </a>
     </li>
@@ -284,7 +279,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/working-with-files/" class="md-nav__link">
+      <a href="../../how-to-guides/working-with-files/" class="md-nav__link">
         Working with files
       </a>
     </li>
@@ -298,7 +293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/invoking-shell-commands/" class="md-nav__link">
+      <a href="../../how-to-guides/invoking-shell-commands/" class="md-nav__link">
         Invoking shell commands
       </a>
     </li>
@@ -319,10 +314,113 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Explanations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Explanations" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Explanations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../explanations/" class="md-nav__link">
-        Explanations
+      <a href="../../explanations/build-phases/" class="md-nav__link">
+        Build phases
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanations/task-graph/" class="md-nav__link">
+        Task graph
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanations/multi-project-builds/" class="md-nav__link">
+        Multi project builds
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanations/up-to-date-checking/" class="md-nav__link">
+        Up to date checking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanations/task-output-caching/" class="md-nav__link">
+        Task output caching
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanations/configuration-caching/" class="md-nav__link">
+        Configuration caching
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -331,6 +429,48 @@
       
       
 
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extract-project-build-to-an-included-build-plugin/" class="md-nav__link">
+        Extract project build to an included build plugin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
   
   
     
@@ -341,51 +481,94 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
-        
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        migrate buildSrc to included build plugins
+      </a>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Tutorials
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Conceptual Overviews
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Tutorials
+      <nav class="md-nav" aria-label="Conceptual Overviews" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Conceptual Overviews
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conceptual-overviews/build/" class="md-nav__link">
+        Build
       </a>
-      
-        
+    </li>
+  
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+            
+          
+            
+              
   
   
   
-    
+    <li class="md-nav__item">
+      <a href="../../conceptual-overviews/project/" class="md-nav__link">
+        Project
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#extract-project-build-to-an-included-build-plugin" class="md-nav__link">
-    Extract project build to an included build plugin
-  </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#migrate-buildsrc-to-included-build-plugins" class="md-nav__link">
-    Migrate buildSrc to included build plugins
-  </a>
+    <li class="md-nav__item">
+      <a href="../../conceptual-overviews/plugin/" class="md-nav__link">
+        Plugin
+      </a>
+    </li>
   
-</li>
-      
-    </ul>
-  
-</nav>
-      
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -398,22 +581,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../conceptual-overviews/" class="md-nav__link">
-        Conceptual Overviews
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../faqs/" class="md-nav__link">
+      <a href="../../faqs/" class="md-nav__link">
         FAQs
       </a>
     </li>
@@ -428,7 +596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+      <a href="../../troubleshooting/" class="md-nav__link">
         Troubleshooting
       </a>
     </li>
@@ -443,7 +611,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../best-practices/" class="md-nav__link">
+      <a href="../../best-practices/" class="md-nav__link">
         Best Practices
       </a>
     </li>
@@ -458,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cheat-sheet/" class="md-nav__link">
+      <a href="../../cheat-sheet/" class="md-nav__link">
         Cheat Sheet
       </a>
     </li>
@@ -482,30 +650,6 @@
   
   
   
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#extract-project-build-to-an-included-build-plugin" class="md-nav__link">
-    Extract project build to an included build plugin
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#migrate-buildsrc-to-included-build-plugins" class="md-nav__link">
-    Migrate buildSrc to included build plugins
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -519,9 +663,9 @@
                 
 
 
-<h1 id="tutorials">Tutorials<a class="headerlink" href="#tutorials" title="Permanent link">&para;</a></h1>
-<h2 id="extract-project-build-to-an-included-build-plugin">Extract project build to an included build plugin<a class="headerlink" href="#extract-project-build-to-an-included-build-plugin" title="Permanent link">&para;</a></h2>
-<h2 id="migrate-buildsrc-to-included-build-plugins">Migrate buildSrc to included build plugins<a class="headerlink" href="#migrate-buildsrc-to-included-build-plugins" title="Permanent link">&para;</a></h2>
+  <h1>migrate buildSrc to included build plugins</h1>
+
+
 
               
             </article>
@@ -537,7 +681,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../explanations/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Explanations" rel="prev">
+        <a href="../extract-project-build-to-an-included-build-plugin/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Extract project build to an included build plugin" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -546,20 +690,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Explanations
+              Extract project build to an included build plugin
             </div>
           </div>
         </a>
       
       
         
-        <a href="../conceptual-overviews/" class="md-footer__link md-footer__link--next" aria-label="Next: Conceptual Overviews" rel="next">
+        <a href="../../conceptual-overviews/build/" class="md-footer__link md-footer__link--next" aria-label="Next: Build" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Conceptual Overviews
+              Build
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -589,10 +733,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand"], "search": "../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand"], "search": "../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.0238f547.min.js"></script>
+      <script src="../../assets/javascripts/bundle.0238f547.min.js"></script>
       
     
   </body>

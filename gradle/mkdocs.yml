@@ -15,8 +15,13 @@ nav:
     - explanations/up-to-date-checking.md
     - explanations/task-output-caching.md
     - explanations/configuration-caching.md
-  - Tutorials: tutorials.md
-  - Conceptual Overviews: conceptual-overviews.md
+  - Tutorials:
+    - tutorials/extract-project-build-to-an-included-build-plugin.md
+    - tutorials/migrate-buildSrc-to-included-build-plugins.md
+  - Conceptual Overviews:
+      - conceptual-overviews/build.md
+      - conceptual-overviews/project.md
+      - conceptual-overviews/plugin.md
   - FAQs: faqs.md
   - Troubleshooting: troubleshooting.md
   - Best Practices: best-practices.md
