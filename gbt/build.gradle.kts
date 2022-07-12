@@ -33,3 +33,7 @@ tasks.register("dockerDown") {
 tasks.register("dockerUp") {
   dependsOn(mkdocsBuild, dockerBuild, dockerRun)
 }
+
+tasks.register("flyDeploy") {
+  shell(listOf("fly", "deploy"))
+}
