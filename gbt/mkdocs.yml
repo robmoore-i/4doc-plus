@@ -2,6 +2,7 @@ site_name: 4doc-style Gradle docs
 site_url: https://gradle-dr4n3.ondigitalocean.app/
 nav:
   - Home: index.md
+  - Getting Started: getting-started.md
   - Reference:
     - glossary.md
     - javadoc.md
