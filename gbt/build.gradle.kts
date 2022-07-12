@@ -6,38 +6,38 @@ fun Task.shell(cmd: List<String>) {
     }
 }
 
-tasks {
-    register("mkdocsServe") {
-        shell(listOf("mkdocs", "serve"))
+fun TaskContainer.shell(name: String, cmd: List<String>): TaskProvider<Task> =
+    register(name) {
+        shell(cmd)
     }
+
+object DockerApp {
+    const val imageName = "gbt"
+    const val containerName = "gbt-local"
+}
+
+tasks {
+    shell("mkdocsServe", listOf("mkdocs", "serve"))
 
     val mkdocsBuild by registering {
         shell(listOf("mkdocs", "build"))
     }
 
-    val imageName = "gbt"
-
     val dockerBuild by registering {
-        mustRunAfter(mkdocsBuild)
-        shell(listOf("docker", "build", ".", "-t", imageName))
+        dependsOn(mkdocsBuild)
+        shell(listOf("docker", "build", ".", "-t", DockerApp.imageName))
     }
-
-    val containerName = "gbt-local"
 
     val dockerRun by registering {
-        mustRunAfter(dockerBuild)
-        shell(listOf("docker", "run", "-d", "-p", "8080:8080", "--name", containerName, imageName))
+        dependsOn(dockerBuild)
+        shell(listOf("docker", "run", "-d", "-p", "8080:8080", "--name", DockerApp.containerName, DockerApp.imageName))
     }
 
-    register("dockerDown") {
-        shell(listOf("docker", "rm", "-f", containerName))
-    }
+    shell("dockerDown", listOf("docker", "rm", "-f", DockerApp.containerName))
 
     register("dockerUp") {
         dependsOn(mkdocsBuild, dockerBuild, dockerRun)
     }
 
-    register("flyDeploy") {
-        shell(listOf("fly", "deploy"))
-    }
+    shell("flyDeploy", listOf("fly", "deploy"))
 }
