@@ -15,16 +15,18 @@ tasks {
         shell(listOf("mkdocs", "build"))
     }
 
+    val imageName = "gbt"
+
     val dockerBuild by registering {
         mustRunAfter(mkdocsBuild)
-        shell(listOf("docker", "build", ".", "-t", "gradle-4doc"))
+        shell(listOf("docker", "build", ".", "-t", imageName))
     }
 
-    val containerName = "gradle-4doc-plus"
+    val containerName = "gbt-local"
 
     val dockerRun by registering {
         mustRunAfter(dockerBuild)
-        shell(listOf("docker", "run", "-d", "-p", "8080:8080", "--name", containerName, "gradle-4doc"))
+        shell(listOf("docker", "run", "-d", "-p", "8080:8080", "--name", containerName, imageName))
     }
 
     register("dockerDown") {
