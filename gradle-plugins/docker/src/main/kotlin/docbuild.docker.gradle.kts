@@ -1,4 +1,5 @@
 import docbuild.docker.DockerAppExtension
+import docbuild.docker.DockerBuild
 import docbuild.shell.shell
 
 val dockerApp = extensions.create<DockerAppExtension>("dockerApp").apply {
@@ -7,7 +8,10 @@ val dockerApp = extensions.create<DockerAppExtension>("dockerApp").apply {
 }
 
 tasks {
-    val dockerBuild by shell(providers.provider { listOf("docker", "build", ".", "-t", dockerApp.imageName.get()) })
+    val dockerBuild by registering(DockerBuild::class) {
+        buildContext.set(".")
+        t.set(dockerApp.imageName.get())
+    }
 
     val dockerRun by shell(providers.provider {
         listOf("docker", "run", "-d", "-p", "8080:8080", "--name", dockerApp.containerName.get(), dockerApp.imageName.get())
