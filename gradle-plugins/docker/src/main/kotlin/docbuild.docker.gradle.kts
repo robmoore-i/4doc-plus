@@ -1,7 +1,10 @@
 import docbuild.docker.DockerAppExtension
 import docbuild.shell.shell
 
-val dockerApp = extensions.create<DockerAppExtension>("dockerApp")
+val dockerApp = extensions.create<DockerAppExtension>("dockerApp").apply {
+    imageName.set(name)
+    containerName.set("$name-local")
+}
 
 tasks {
     val dockerBuild by shell(providers.provider { listOf("docker", "build", ".", "-t", dockerApp.imageName.get()) })
