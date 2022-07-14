@@ -2,6 +2,10 @@ import docbuild.docker.DockerAppExtension
 import docbuild.docker.DockerBuild
 import docbuild.shell.Shell
 
+plugins {
+    base
+}
+
 val dockerApp = extensions.create<DockerAppExtension>("dockerApp").apply {
     imageName.set(name)
     containerName.set("$name-local")

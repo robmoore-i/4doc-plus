@@ -1,15 +1,17 @@
-import docbuild.docker.DockerBuild
-
 plugins {
-    base
     id("docbuild.mkdocs")
-    id("docbuild.fly")
 }
 
-tasks {
-    named<DockerBuild>("dockerBuild") {
-        resources.from(layout.projectDirectory.file("nginx.conf"))
-        resources.from(layout.projectDirectory.file("mkdocs.yml"))
-        resources.from(layout.projectDirectory.dir("docs"))
-    }
+val mkdocsConfiguration by configurations.creating {
+    isCanBeConsumed = true
+    isCanBeResolved = false
+    outgoing.artifact(layout.projectDirectory.file("mkdocs.yml"))
+    attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(name))
+}
+
+val mkdocsDocs by configurations.creating {
+    isCanBeConsumed = true
+    isCanBeResolved = false
+    outgoing.artifact(layout.projectDirectory.dir("docs"))
+    attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(name))
 }
