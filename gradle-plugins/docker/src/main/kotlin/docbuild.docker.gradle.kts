@@ -10,6 +10,7 @@ val dockerApp = extensions.create<DockerAppExtension>("dockerApp").apply {
 tasks {
     val dockerBuild by registering(DockerBuild::class) {
         buildContext.set(".")
+        dockerfile.set(layout.projectDirectory.file("Dockerfile"))
         t.set(dockerApp.imageName.get())
     }
 
