@@ -1,8 +1,10 @@
 import docbuild.mkdocs.MkdocsBuild
-import docbuild.shell.shell
+import docbuild.shell.Shell
 
 tasks {
-    shell("mkdocsServe", providers.provider { listOf("mkdocs", "serve") })
+    register<Shell>("mkdocsServe") {
+        cmd.set(listOf("mkdocs", "serve"))
+    }
 
     register<MkdocsBuild>("mkdocsBuild")
 }
