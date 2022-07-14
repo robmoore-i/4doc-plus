@@ -1,0 +1,30 @@
+site_name: 4doc-style Gradle Enterprise docs
+site_url: https://ge.fly.dev/
+nav:
+  - Home: index.md
+  - What is Gradle Enterprise?: what-is-ge.md
+  - Reference:
+    - reference/glossary.md
+    - reference/enterprise-configuration-reference.md
+    - reference/helm-values-reference.md
+  - Installing Gradle Enterprise:
+    - installing-ge/overview.md
+    - installing-ge/using-helm.md
+  - Administrating a Gradle Enterprise installation:
+    - administrating-ge/responsibilities-of-an-administrator.md
+    - administrating-ge/knowledge-of-tooling.md
+    - administrating-ge/configuring-ge.md
+  - Tutorials:
+    - tutorials/install-ge-on-aws.md
+    - tutorials/install-ge-on-gcp.md
+  - FAQs: faqs.md
+  - Troubleshooting: troubleshooting.md
+  - Best Practices: best-practices.md
+  - Cheat Sheet: cheat-sheet.md
+theme: 
+  name: material
+  features:
+    - navigation.expand
+markdown_extensions:
+  toc:
+    permalink: true

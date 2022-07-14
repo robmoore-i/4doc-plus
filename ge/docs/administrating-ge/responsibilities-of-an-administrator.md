@@ -1,0 +1,1 @@
+# Responsibilities of a Gradle Enterprise Administrator

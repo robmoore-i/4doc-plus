@@ -1,5 +1,5 @@
 site_name: 4doc-style Gradle docs
-site_url: https://gradle-dr4n3.ondigitalocean.app/
+site_url: https://gradle.fly.dev/
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
