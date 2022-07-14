@@ -11,6 +11,7 @@ import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecOperations
+import org.gradle.work.DisableCachingByDefault
 import javax.inject.Inject
 
 /**
@@ -18,6 +19,7 @@ import javax.inject.Inject
  *
  * See: https://docs.docker.com/engine/reference/commandline/build/
  */
+@DisableCachingByDefault
 abstract class DockerBuild @Inject constructor(
     objects: ObjectFactory,
     private val execOps: ExecOperations,
