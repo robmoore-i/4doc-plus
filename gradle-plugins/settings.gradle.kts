@@ -1,5 +1,6 @@
 rootProject.name = "gradle-plugins"
 
 include("shell")
-include("docker")
 include("mkdocs")
+include("docker")
+include("fly")

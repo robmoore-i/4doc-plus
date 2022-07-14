@@ -9,7 +9,7 @@ val dockerApp = extensions.create<DockerAppExtension>("dockerApp").apply {
 
 tasks {
     val dockerBuild by registering(DockerBuild::class) {
-        t.set(dockerApp.imageName.get())
+        t.set("${dockerApp.imageName.get()}:latest")
     }
 
     val dockerRun by registering(Shell::class) {

@@ -19,6 +19,7 @@ nav:
   - Tutorials:
     - tutorials/extract-project-build-to-an-included-build-plugin.md
     - tutorials/migrate-buildSrc-to-included-build-plugins.md
+    - tutorials/monorepo.md
   - Conceptual Overviews:
       - conceptual-overviews/build.md
       - conceptual-overviews/project.md

@@ -1,11 +1,9 @@
 import docbuild.docker.DockerBuild
-import docbuild.shell.shell
 
 plugins {
     base
-    id("docbuild.shell")
-    id("docbuild.docker")
     id("docbuild.mkdocs")
+    id("docbuild.fly")
 }
 
 tasks {
@@ -14,6 +12,4 @@ tasks {
         resources.from(layout.projectDirectory.file("mkdocs.yml"))
         resources.from(layout.projectDirectory.dir("docs"))
     }
-
-    shell("flyDeploy", providers.provider { listOf("fly", "deploy") })
 }
