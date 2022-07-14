@@ -8,11 +8,17 @@ val dockerApp = extensions.create<DockerAppExtension>("dockerApp").apply {
 }
 
 tasks {
+    val dockerTaskGroup = "docker"
+
     val dockerBuild by registering(DockerBuild::class) {
+        group = dockerTaskGroup
+        description = "Builds the docker image."
         t.set("${dockerApp.imageName.get()}:latest")
     }
 
-    val dockerRun by registering(Shell::class) {
+    register<Shell>("dockerUp") {
+        group = dockerTaskGroup
+        description = "Build the docker image and run a local container with it."
         dependsOn(dockerBuild)
         cmd.set(providers.provider {
             listOf("docker", "run", "-d", "-p", "8080:8080", "--name", dockerApp.containerName.get(), dockerApp.imageName.get())
@@ -20,10 +26,8 @@ tasks {
     }
 
     register<Shell>("dockerDown") {
+        group = dockerTaskGroup
+        description = "Bring down the local container."
         cmd.set(providers.provider { listOf("docker", "rm", "-f", dockerApp.containerName.get()) })
-    }
-
-    register("dockerUp") {
-        dependsOn(dockerRun)
     }
 }
