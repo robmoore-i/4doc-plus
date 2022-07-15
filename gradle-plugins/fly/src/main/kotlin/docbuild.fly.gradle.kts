@@ -12,9 +12,9 @@ extensions.add<NamedDomainObjectContainer<FlyApp>>("flyApps", flyAppContainer)
 
 flyAppContainer.all {
     val dockerBuild = tasks.named<DockerBuild>("dockerBuild${imageName.get().capitalize()}")
+    val localImage = dockerBuild.flatMap { it.t }
 
     val flyAppName = appName.get()
-    val builtImage = dockerBuild.flatMap { it.t }
     val flyImage = providers.provider { "registry.fly.io/${flyAppName}:${imageTag}" }
 
     val flyTaskGroup = "fly"
@@ -23,9 +23,9 @@ flyAppContainer.all {
         group = flyTaskGroup
         description = "Tag the latest built image for the Fly registry."
         mustRunAfter(dockerBuild)
-        cmd.set(providers.provider { listOf("docker", "tag", builtImage.get(), flyImage.get()) })
+        cmd.set(providers.provider { listOf("docker", "tag", localImage.get(), flyImage.get()) })
         doLast {
-            logger.lifecycle("Tagged {} to {}", builtImage.get(), flyImage.get())
+            logger.lifecycle("Tagged {} to {}", localImage.get(), flyImage.get())
         }
     }
 
