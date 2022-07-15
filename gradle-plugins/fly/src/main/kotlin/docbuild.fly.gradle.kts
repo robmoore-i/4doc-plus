@@ -1,5 +1,5 @@
 import docbuild.docker.DockerBuild
-import docbuild.fly.FlyAppExtension
+import docbuild.fly.FlyApp
 import docbuild.fly.FlyDeploy
 import docbuild.shell.Shell
 
@@ -7,19 +7,19 @@ plugins {
     id("docbuild.docker")
 }
 
-val flyApp = extensions.create<FlyAppExtension>("flyApp").apply {
-    appName.set(name)
-}
+val flyAppContainer = container(FlyApp::class)
+extensions.add<NamedDomainObjectContainer<FlyApp>>("flyApps", flyAppContainer)
 
-tasks {
-    val dockerBuild by existing(DockerBuild::class)
+flyAppContainer.all {
+    val dockerBuild = tasks.named<DockerBuild>("dockerBuild${imageName.get().capitalize()}")
 
+    val flyAppName = appName.get()
     val builtImage = dockerBuild.flatMap { it.t }
-    val flyImage = providers.provider { "registry.fly.io/${flyApp.appName.get()}:${flyApp.imageTag}" }
+    val flyImage = providers.provider { "registry.fly.io/${flyAppName}:${imageTag}" }
 
     val flyTaskGroup = "fly"
 
-    val dockerTag by registering(Shell::class) {
+    val dockerTag = tasks.register<Shell>("dockerTag${imageName.get().capitalize()}") {
         group = flyTaskGroup
         description = "Tag the latest built image for the Fly registry."
         mustRunAfter(dockerBuild)
@@ -29,7 +29,7 @@ tasks {
         }
     }
 
-    val dockerPush by registering(Shell::class) {
+    val dockerPush = tasks.register<Shell>("dockerPush${imageName.get().capitalize()}") {
         group = flyTaskGroup
         description = "Push the tagged image to the Fly registry."
         dependsOn(dockerTag)
@@ -39,23 +39,23 @@ tasks {
         }
     }
 
-    register<FlyDeploy>("flyDeploy") {
+    tasks.register<FlyDeploy>("flyDeploy${imageName.get().capitalize()}") {
         group = flyTaskGroup
         description = "Deploy the Fly app by building a new image."
         dependsOn(dockerBuild, dockerPush)
-        appName.set(flyApp.appName)
+        appName.set(flyAppName)
         image.set(flyImage)
     }
 
-    register<FlyDeploy>("flyDeployLatest") {
+    tasks.register<FlyDeploy>("flyDeployLatest${imageName.get().capitalize()}") {
         group = flyTaskGroup
         description = "Deploy the Fly app using the latest built local image."
         dependsOn(dockerTag, dockerPush)
-        appName.set(flyApp.appName)
+        appName.set(flyAppName)
         image.set(flyImage)
     }
 
-    register<FlyDeploy>("flyDeployImage") {
+    tasks.register<FlyDeploy>("flyDeployImage${imageName.get().capitalize()}") {
         group = flyTaskGroup
         description = "Deploy the Fly app using a specific image."
         val propertyName = "image"
@@ -69,7 +69,7 @@ tasks {
                 }
             }
         }
-        appName.set(flyApp.appName)
+        appName.set(flyAppName)
         image.set(providers.gradleProperty(propertyName))
     }
 }

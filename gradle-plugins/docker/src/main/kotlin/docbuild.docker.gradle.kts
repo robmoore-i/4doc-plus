@@ -1,4 +1,4 @@
-import docbuild.docker.DockerAppExtension
+import docbuild.docker.DockerApp
 import docbuild.docker.DockerBuild
 import docbuild.shell.Shell
 
@@ -6,32 +6,30 @@ plugins {
     base
 }
 
-val dockerApp = extensions.create<DockerAppExtension>("dockerApp").apply {
-    imageName.set(name)
-    containerName.set("$name-local")
-}
+val dockerAppContainer = container(DockerApp::class)
+extensions.add<NamedDomainObjectContainer<DockerApp>>("dockerApps", dockerAppContainer)
 
-tasks {
-    val dockerTaskGroup = "docker"
+val dockerTaskGroup = "docker"
 
-    val dockerBuild by registering(DockerBuild::class) {
+dockerAppContainer.all {
+    val dockerBuild = tasks.register<DockerBuild>("dockerBuild${imageName.get().capitalize()}") {
         group = dockerTaskGroup
-        description = "Builds the docker image."
-        t.set("${dockerApp.imageName.get()}:latest")
+        description = "Builds the ${imageName.get()} docker image."
+        t.set("${imageName.get()}:latest")
     }
 
-    register<Shell>("dockerUp") {
+    tasks.register<Shell>("dockerUp${imageName.get().capitalize()}") {
         group = dockerTaskGroup
         description = "Build the docker image and run a local container with it."
         dependsOn(dockerBuild)
         cmd.set(providers.provider {
-            listOf("docker", "run", "-d", "-p", "8080:8080", "--name", dockerApp.containerName.get(), dockerApp.imageName.get())
+            listOf("docker", "run", "-d", "-p", "8080:8080", "--name", containerName.get(), imageName.get())
         })
     }
 
-    register<Shell>("dockerDown") {
+    tasks.register<Shell>("dockerDown${imageName.get().capitalize()}") {
         group = dockerTaskGroup
         description = "Bring down the local container."
-        cmd.set(providers.provider { listOf("docker", "rm", "-f", dockerApp.containerName.get()) })
+        cmd.set(providers.provider { listOf("docker", "rm", "-f", containerName.get()) })
     }
 }

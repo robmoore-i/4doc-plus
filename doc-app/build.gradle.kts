@@ -5,34 +5,34 @@ plugins {
     id("docbuild.fly")
 }
 
-dockerApp {
-    imageName.set("gbt")
-    containerName.set("gbt-local")
+dockerApps {
+    register("gbt")
+    register("ge")
 }
 
-flyApp {
-    appName.set("gbt")
+flyApps {
+    register("gbt")
 }
 
-val mkdocsConfiguration by configurations.creating {
-    isCanBeConsumed = false
-    isCanBeResolved = true
-    attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(name))
-}
+dockerApps.all {
+    val mkdocsConfiguration = configurations.create("mkdocsConfiguration${name.capitalize()}") {
+        isCanBeConsumed = false
+        isCanBeResolved = true
+        attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(name))
+    }
 
-val mkdocsDocs by configurations.creating {
-    isCanBeConsumed = false
-    isCanBeResolved = true
-    attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(name))
-}
+    val mkdocsDocs = configurations.create("mkdocsDocs${name.capitalize()}") {
+        isCanBeConsumed = false
+        isCanBeResolved = true
+        attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(name))
+    }
 
-dependencies {
-    add(mkdocsConfiguration.name, project(":gbt"))
-    add(mkdocsDocs.name, project(":gbt"))
-}
+    dependencies {
+        add(mkdocsConfiguration.name, project(":$name"))
+        add(mkdocsDocs.name, project(":$name"))
+    }
 
-tasks {
-    named<DockerBuild>("dockerBuild") {
+    tasks.named<DockerBuild>("dockerBuild${imageName.get().capitalize()}") {
         resources.from(layout.projectDirectory.file("nginx.conf"))
         resources.from(mkdocsConfiguration)
         resources.from(mkdocsDocs)
