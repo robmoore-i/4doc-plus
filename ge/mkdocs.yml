@@ -1,5 +1,5 @@
 site_name: 4doc-style Gradle Enterprise docs
-site_url: https://ge.fly.dev/
+site_url: https://docs.fly.dev
 nav:
   - Home: index.md
   - What is Gradle Enterprise?: what-is-ge.md

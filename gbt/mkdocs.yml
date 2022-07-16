@@ -1,5 +1,5 @@
-site_name: 4doc-style Gradle docs
-site_url: https://gradle.fly.dev/
+site_name: 4doc-style Gradle Build Tool docs
+site_url: https://docs.fly.dev
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
@@ -21,9 +21,9 @@ nav:
     - tutorials/migrate-buildSrc-to-included-build-plugins.md
     - tutorials/monorepo.md
   - Conceptual Overviews:
-      - conceptual-overviews/build.md
-      - conceptual-overviews/project.md
-      - conceptual-overviews/plugin.md
+    - conceptual-overviews/build.md
+    - conceptual-overviews/project.md
+    - conceptual-overviews/plugin.md
   - FAQs: faqs.md
   - Troubleshooting: troubleshooting.md
   - Best Practices: best-practices.md

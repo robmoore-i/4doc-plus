@@ -8,12 +8,16 @@ RUN pip install --upgrade pip \
 
 FROM mkdocs as static-site
 
-COPY . /mkdocs-src
+COPY ./ge-mkdocs /ge-mkdocs
+COPY ./gbt-mkdocs /gbt-mkdocs
 
-RUN cd mkdocs-src && mkdocs build -d site
+RUN ls \
+    && cd /ge-mkdocs && mkdocs build -d site \
+    && cd /gbt-mkdocs && mkdocs build -d site
 
 FROM nginx@sha256:20a1077e25510e824d6f9ce7af07aa02d86536848ddab3e4ef7d1804608d8125
 
-COPY --from=static-site /mkdocs-src/site /docs-site
+COPY --from=static-site /ge-mkdocs/site /ge
+COPY --from=static-site /gbt-mkdocs/site /gbt
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
