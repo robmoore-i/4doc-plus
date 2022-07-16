@@ -2,6 +2,6 @@ rootProject.name = "4doc-plus"
 
 includeBuild("gradle-plugins")
 
-include("doc-app")
+include("app")
 include("ge")
 include("gbt")
