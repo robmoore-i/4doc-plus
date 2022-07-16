@@ -1,6 +1,10 @@
 FROM python@sha256:869b8a1b543b5b29d1cf71ef08fd36e0da1eccd4993a422fc6f5b321043ab42a as mkdocs
 
-RUN pip install --upgrade pip && pip install mkdocs mkdocs-material
+RUN pip install --upgrade pip \
+    && pip install \
+      mkdocs==1.3.0 \
+      mkdocs-material==8.3.9 \
+    && pip freeze
 
 FROM mkdocs as static-site
 
