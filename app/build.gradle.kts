@@ -10,7 +10,6 @@ dockerApps {
 }
 
 flyApps {
-    // TODO: Create this app
     register("docs")
 }
 
