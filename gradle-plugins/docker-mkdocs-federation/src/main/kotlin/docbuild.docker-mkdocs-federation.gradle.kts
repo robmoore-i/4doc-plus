@@ -1,6 +1,7 @@
 import docbuild.docker.DockerBuild
 import docbuild.docker.mkdocs.federation.DockerfileTemplate
 import docbuild.docker.mkdocs.federation.FederatedMkdocsDockerApp
+import docbuild.docker.mkdocs.federation.NginxConfTemplate
 import docbuild.docker.mkdocs.federation.RenderTemplateFile
 
 plugins {
@@ -18,7 +19,6 @@ federatedMkdocsDockerAppContainer.all {
         }
     }
 }
-
 
 afterEvaluate {
     federatedMkdocsDockerAppContainer.all {
@@ -72,10 +72,19 @@ afterEvaluate {
             }
         }
 
+        val renderNginxConf = tasks.register<RenderTemplateFile>("renderNginxConfFor${imageName.get().capitalize()}") {
+            template.set(NginxConfTemplate.template)
+            templateVariables.put("projectNames", projectNames.map { it.sorted().joinToString(",") })
+            outputFile.set(layout.buildDirectory.dir(name).map { it.file("nginx.conf") })
+            renderFunction = { template, variables ->
+                val projectNames = variables["projectNames"]?.split(",")!!
+                NginxConfTemplate.render(template, projectNames)
+            }
+        }
+
         tasks.named<DockerBuild>("dockerBuild${imageName.get().capitalize()}") {
             dockerfile.set(renderDockerfile.flatMap { it.outputFile })
-            // TODO: Render nginx.conf from a template.
-            resources.from(layout.projectDirectory.file("nginx.conf"))
+            resources.from(renderNginxConf.flatMap { it.outputFile })
             syncMkdocsSourcesTasks.forEach { resources.from(it) }
         }
     }
