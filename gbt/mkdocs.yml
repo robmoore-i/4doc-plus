@@ -4,14 +4,16 @@ nav:
   - Home: index.md
   - Getting Started: getting-started.md
   - Reference:
-    - glossary.md
-    - javadoc.md
-  - How-to-guides:
-    - how-to-guides/working-with-files.md
-    - how-to-guides/invoking-shell-commands.md
-  - Explanations:
-    - explanations/build-phases.md
-    - explanations/task-graph.md
+    - reference/glossary.md
+    - reference/javadoc.md
+  - Overview:
+    - overview/what-is-gradle.md
+    - overview/usage-tradeoffs.md
+    - overview/values-and-themes.md
+  - Basics:
+    - baseline/working-with-files.md
+    - baseline/invoking-shell-commands.md
+  - Features:
     - explanations/multi-project-builds.md
     - explanations/up-to-date-checking.md
     - explanations/task-output-caching.md
@@ -20,15 +22,15 @@ nav:
     - tutorials/extract-project-build-to-an-included-build-plugin.md
     - tutorials/migrate-buildSrc-to-included-build-plugins.md
     - tutorials/monorepo.md
-  - Conceptual Overviews:
-    - conceptual-overviews/build.md
-    - conceptual-overviews/project.md
-    - conceptual-overviews/plugin.md
+  - Concepts:
+    - concepts/build.md
+    - concepts/project.md
+    - concepts/plugin.md
   - FAQs: faqs.md
   - Troubleshooting: troubleshooting.md
   - Best Practices: best-practices.md
   - Cheat Sheet: cheat-sheet.md
-theme: 
+theme:
   name: material
   features:
     - navigation.expand
