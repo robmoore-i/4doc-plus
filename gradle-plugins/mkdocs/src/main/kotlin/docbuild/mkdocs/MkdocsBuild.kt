@@ -31,8 +31,10 @@ abstract class MkdocsBuild @Inject constructor(
 
     @TaskAction
     fun build() {
+        val outputPath = outputDir.get().asFile.absolutePath
         execOps.exec {
-            commandLine("mkdocs", "build", "-d", outputDir.get().asFile.absolutePath)
+            commandLine("mkdocs", "build", "-d", outputPath)
         }.assertNormalExitValue()
+        logger.lifecycle("Built $outputPath")
     }
 }
