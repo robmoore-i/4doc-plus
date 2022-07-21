@@ -74,6 +74,7 @@ afterEvaluate {
 
         tasks.named<DockerBuild>("dockerBuild${imageName.get().capitalize()}") {
             dockerfile.set(renderDockerfile.flatMap { it.outputFile })
+            // TODO: Render nginx.conf from a template.
             resources.from(layout.projectDirectory.file("nginx.conf"))
             syncMkdocsSourcesTasks.forEach { resources.from(it) }
         }
