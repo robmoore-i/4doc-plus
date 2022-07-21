@@ -1,5 +1,7 @@
 import docbuild.docker.DockerBuild
+import docbuild.docker.mkdocs.federation.DockerfileTemplate
 import docbuild.docker.mkdocs.federation.FederatedMkdocsDockerApp
+import docbuild.docker.mkdocs.federation.RenderTemplateFile
 
 plugins {
     id("docbuild.docker")
@@ -60,8 +62,18 @@ afterEvaluate {
             }
         }
 
+        val renderDockerfile = tasks.register<RenderTemplateFile>("renderDockerfileFor${imageName.get().capitalize()}") {
+            template.set(DockerfileTemplate.template)
+            templateVariables.put("projectNames", projectNames.map { it.sorted().joinToString(",") })
+            outputFile.set(layout.buildDirectory.dir(name).map { it.file("Dockerfile") })
+            renderFunction = { template, variables ->
+                val projectNames = variables["projectNames"]?.split(",")!!
+                DockerfileTemplate.render(template, projectNames)
+            }
+        }
+
         tasks.named<DockerBuild>("dockerBuild${imageName.get().capitalize()}") {
-            // TODO: Template and generate Dockerfile and nginx.conf as part of federation.
+            dockerfile.set(renderDockerfile.flatMap { it.outputFile })
             resources.from(layout.projectDirectory.file("nginx.conf"))
             syncMkdocsSourcesTasks.forEach { resources.from(it) }
         }
