@@ -20,6 +20,7 @@ federatedMkdocsDockerAppContainer.all {
     }
 }
 
+// TODO: Fix this so it doesn't use afterEvaluate.
 afterEvaluate {
     federatedMkdocsDockerAppContainer.all {
         val syncMkdocsSourcesTasks = projectNames.get().map { projectName ->
