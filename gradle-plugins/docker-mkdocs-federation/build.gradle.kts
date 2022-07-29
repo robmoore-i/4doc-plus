@@ -11,5 +11,6 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":mkdocs"))
     implementation(project(":docker"))
 }
