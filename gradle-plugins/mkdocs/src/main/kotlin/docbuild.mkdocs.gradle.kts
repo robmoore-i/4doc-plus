@@ -2,32 +2,32 @@ import docbuild.mkdocs.Mkdocs
 import docbuild.mkdocs.MkdocsBuild
 import docbuild.shell.Shell
 
-configurations.create("mkdocsConfiguration${name.capitalize()}") {
-    isCanBeConsumed = true
-    isCanBeResolved = false
-    outgoing.artifact(layout.projectDirectory.file("mkdocs.yml"))
-    attributes.attribute(Mkdocs.mkdocsAttribute, objects.named(Mkdocs.MKDOCS_CONFIG))
+tasks.register<Shell>("mkdocsServe") {
+    cmd.set(listOf("mkdocs", "serve"))
 }
 
-configurations.create("mkdocsDocs${name.capitalize()}") {
-    isCanBeConsumed = true
-    isCanBeResolved = false
-    outgoing.artifact(layout.projectDirectory.dir("docs"))
-    attributes.attribute(Mkdocs.mkdocsAttribute, objects.named(Mkdocs.MKDOCS_DOCS))
+tasks.register<MkdocsBuild>("mkdocsBuild")
+
+val mkdocsSourcesDir = layout.buildDirectory.dir("mkdocs-sources")
+
+val prepareMkdocsSourceDocs by tasks.registering(Sync::class) {
+    from(layout.projectDirectory.dir("docs"))
+    into(mkdocsSourcesDir.map { it.dir("docs") })
 }
 
-configurations.create("mkdocsSources${name.capitalize()}") {
+val prepareMkdocsSourceConfig by tasks.registering(Copy::class) {
+    from(layout.projectDirectory.file("mkdocs.yml"))
+    into(mkdocsSourcesDir)
+}
+
+val prepareMkdocsSources by tasks.registering {
+    outputs.dir(mkdocsSourcesDir)
+    dependsOn(prepareMkdocsSourceDocs, prepareMkdocsSourceConfig)
+}
+
+configurations.create("mkdocsSources") {
     isCanBeConsumed = true
     isCanBeResolved = false
-    outgoing.artifact(layout.projectDirectory.file("mkdocs.yml"))
-    outgoing.artifact(layout.projectDirectory.dir("docs"))
+    outgoing.artifact(prepareMkdocsSources)
     attributes.attribute(Mkdocs.mkdocsAttribute, objects.named(Mkdocs.MKDOCS_SOURCES))
-}
-
-tasks {
-    register<Shell>("mkdocsServe") {
-        cmd.set(listOf("mkdocs", "serve"))
-    }
-
-    register<MkdocsBuild>("mkdocsBuild")
 }

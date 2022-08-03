@@ -14,83 +14,36 @@ dockerApps {
     register("docs")
 }
 
-// Configs
-
-val mkdocsConfigurationGe = configurations.create("mkdocsConfigurationGe") {
+val mkdocsSourcesGe: Configuration by configurations.creating {
     isCanBeConsumed = false
     isCanBeResolved = true
-    attributes.attribute(Mkdocs.mkdocsAttribute, objects.named(Mkdocs.MKDOCS_CONFIG))
+    attributes.attribute(Mkdocs.mkdocsAttribute, objects.named(Mkdocs.MKDOCS_SOURCES))
 }
 
-val mkdocsDocsGe = configurations.create("mkdocsDocsGe") {
+val mkdocsSourcesGbt: Configuration by configurations.creating {
     isCanBeConsumed = false
     isCanBeResolved = true
-    attributes.attribute(Mkdocs.mkdocsAttribute, objects.named(Mkdocs.MKDOCS_DOCS))
-}
-
-val mkdocsConfigurationGbt = configurations.create("mkdocsConfigurationGbt") {
-    isCanBeConsumed = false
-    isCanBeResolved = true
-    attributes.attribute(Mkdocs.mkdocsAttribute, objects.named(Mkdocs.MKDOCS_CONFIG))
-}
-
-val mkdocsDocsGbt = configurations.create("mkdocsDocsGbt") {
-    isCanBeConsumed = false
-    isCanBeResolved = true
-    attributes.attribute(Mkdocs.mkdocsAttribute, objects.named(Mkdocs.MKDOCS_DOCS))
+    attributes.attribute(Mkdocs.mkdocsAttribute, objects.named(Mkdocs.MKDOCS_SOURCES))
 }
 
 dependencies {
-    add(mkdocsConfigurationGe.name, project(":ge"))
-    add(mkdocsDocsGe.name, project(":ge"))
-    add(mkdocsConfigurationGbt.name, project(":gbt"))
-    add(mkdocsDocsGbt.name, project(":gbt"))
+    mkdocsSourcesGe(project(":ge"))
+    mkdocsSourcesGbt(project(":gbt"))
 }
 
 val federationTaskGroup = "mkdocs federation"
+val mkdocsSources = layout.buildDirectory.dir("mkdocsSources")
 
-// Ge
-
-val mkdocsSourcesGe = layout.buildDirectory.dir("mkdocsSources").map { it.dir("ge-mkdocs") }
-
-val syncMkdocsConfigurationGe = tasks.register<Sync>("syncMkdocsConfigurationGe") {
+val syncMkdocsSourcesGe by tasks.registering(Sync::class) {
     group = federationTaskGroup
-    from(mkdocsConfigurationGe)
-    into(mkdocsSourcesGe)
+    from(mkdocsSourcesGe)
+    into(mkdocsSources.map { it.dir("ge-mkdocs") })
 }
 
-val syncMkdocsDocsGe = tasks.register<Sync>("syncMkdocsDocsGe") {
+val syncMkdocsSourcesGbt by tasks.registering(Sync::class) {
     group = federationTaskGroup
-    from(mkdocsDocsGe)
-    into(mkdocsSourcesGe.map { it.dir("docs") })
-}
-
-val syncMkdocsSourcesGe by tasks.registering {
-    group = federationTaskGroup
-    dependsOn(syncMkdocsConfigurationGe, syncMkdocsDocsGe)
-    outputs.dir(syncMkdocsConfigurationGe.map { it.destinationDir })
-}
-
-// Gbt
-
-val mkdocsSourcesGbt = layout.buildDirectory.dir("mkdocsSources").map { it.dir("gbt-mkdocs") }
-
-val syncMkdocsConfigurationGbt = tasks.register<Sync>("syncMkdocsConfigurationGbt") {
-    group = federationTaskGroup
-    from(mkdocsConfigurationGbt)
-    into(mkdocsSourcesGbt)
-}
-
-val syncMkdocsDocsGbt = tasks.register<Sync>("syncMkdocsDocsGbt") {
-    group = federationTaskGroup
-    from(mkdocsDocsGbt)
-    into(mkdocsSourcesGbt.map { it.dir("docs") })
-}
-
-val syncMkdocsSourcesGbt by tasks.registering {
-    group = federationTaskGroup
-    dependsOn(syncMkdocsConfigurationGbt, syncMkdocsDocsGbt)
-    outputs.dir(syncMkdocsConfigurationGbt.map { it.destinationDir })
+    from(mkdocsSourcesGbt)
+    into(mkdocsSources.map { it.dir("gbt-mkdocs") })
 }
 
 // Docker
