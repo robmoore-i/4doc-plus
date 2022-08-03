@@ -8,7 +8,7 @@ object DockerfileTemplate {
 
     fun render(template: String, projectNames: List<String>): String {
         return template
-            .replace(copySourceLines, projectNames.joinToString("\n") { "COPY ./$it-mkdocs /$it-mkdocs" })
+            .replace(copySourceLines, projectNames.joinToString("\n") { "COPY ./mkdocs-sources/$it-mkdocs /$it-mkdocs" })
             .replace(buildLines, projectNames.joinToString("\n    ") { "&& cd /$it-mkdocs && mkdocs build -d site \\" })
             .replace(copySiteLines, projectNames.joinToString("\n") { "COPY --from=static-site /$it-mkdocs/site /$it" })
     }

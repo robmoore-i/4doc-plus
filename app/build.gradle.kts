@@ -1,8 +1,8 @@
 import docbuild.docker.DockerBuild
 import docbuild.docker.mkdocs.federation.DockerfileTemplate
 import docbuild.docker.mkdocs.federation.NginxConfTemplate
+import docbuild.docker.mkdocs.federation.PrepareMkdocsSources
 import docbuild.docker.mkdocs.federation.RenderTemplateFile
-import docbuild.mkdocs.Mkdocs
 
 plugins {
     base
@@ -14,36 +14,16 @@ dockerApps {
     register("docs")
 }
 
-val mkdocsSourcesGe: Configuration by configurations.creating {
-    isCanBeConsumed = false
-    isCanBeResolved = true
-    attributes.attribute(Mkdocs.mkdocsAttribute, objects.named(Mkdocs.MKDOCS_SOURCES))
-}
-
-val mkdocsSourcesGbt: Configuration by configurations.creating {
-    isCanBeConsumed = false
-    isCanBeResolved = true
-    attributes.attribute(Mkdocs.mkdocsAttribute, objects.named(Mkdocs.MKDOCS_SOURCES))
-}
+val mkdocsSources by configurations.existing
 
 dependencies {
-    mkdocsSourcesGe(project(":ge"))
-    mkdocsSourcesGbt(project(":gbt"))
+    mkdocsSources(project(":ge"))
+    mkdocsSources(project(":gbt"))
 }
 
-val federationTaskGroup = "mkdocs federation"
-val mkdocsSources = layout.buildDirectory.dir("mkdocsSources")
-
-val syncMkdocsSourcesGe by tasks.registering(Sync::class) {
-    group = federationTaskGroup
-    from(mkdocsSourcesGe)
-    into(mkdocsSources.map { it.dir("ge-mkdocs") })
-}
-
-val syncMkdocsSourcesGbt by tasks.registering(Sync::class) {
-    group = federationTaskGroup
-    from(mkdocsSourcesGbt)
-    into(mkdocsSources.map { it.dir("gbt-mkdocs") })
+val syncMkdocsSources by tasks.registering(PrepareMkdocsSources::class) {
+    mkdocsSourcesDir.from(mkdocsSources)
+    outputDir.set(layout.buildDirectory.dir("mkdocs-sources"))
 }
 
 // Docker
@@ -71,8 +51,7 @@ val renderNginxConf = tasks.register<RenderTemplateFile>("renderNginxConfForDocs
 tasks.named<DockerBuild>("dockerBuildDocs") {
     dockerfile.set(renderDockerfile.flatMap { it.outputFile })
     resources.from(renderNginxConf.flatMap { it.outputFile })
-    resources.from(syncMkdocsSourcesGe)
-    resources.from(syncMkdocsSourcesGbt)
+    resources.from(syncMkdocsSources.flatMap { it.outputDir })
 }
 
 // Fly

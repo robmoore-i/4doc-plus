@@ -25,7 +25,7 @@ val prepareMkdocsSources by tasks.registering {
     dependsOn(prepareMkdocsSourceDocs, prepareMkdocsSourceConfig)
 }
 
-configurations.create("mkdocsSources") {
+configurations.create("mkdocsSources${name.capitalize()}") {
     isCanBeConsumed = true
     isCanBeResolved = false
     outgoing.artifact(prepareMkdocsSources)
