@@ -11,7 +11,7 @@ import org.gradle.work.DisableCachingByDefault
 import javax.inject.Inject
 
 @DisableCachingByDefault
-abstract class PrepareMkdocsSources @Inject constructor(private val fsOps: FileSystemOperations) : DefaultTask() {
+abstract class SyncMkdocsSources @Inject constructor(private val fsOps: FileSystemOperations) : DefaultTask() {
 
     @get:InputFiles
     abstract val mkdocsSourcesDir: ConfigurableFileCollection
@@ -23,7 +23,7 @@ abstract class PrepareMkdocsSources @Inject constructor(private val fsOps: FileS
     fun sync() {
         for (file in mkdocsSourcesDir.files) {
             val projectName = file.parentFile.parentFile.name
-            val contents = file.listFiles().toList()
+            val contents = file.listFiles()!!.toList()
             if (contents.size != 2) {
                 throw IllegalArgumentException("There should be exactly 2 files: 'mkdocs.yml' and 'docs'.")
             }
