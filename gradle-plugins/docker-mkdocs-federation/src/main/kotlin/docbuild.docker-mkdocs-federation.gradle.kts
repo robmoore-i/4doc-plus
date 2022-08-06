@@ -25,10 +25,7 @@ val syncMkdocsSources by tasks.registering(SyncMkdocsSources::class) {
     outputDir.set(layout.buildDirectory.dir("mkdocs-sources"))
 }
 
-val projectNamesProvider: Provider<String> = syncMkdocsSources.map {
-    it.outputDir.get().asFile.listFiles()?.toList()
-        ?.joinToString(",") { f -> f.name.dropLast("-mkdocs".length) } ?: ""
-}
+val projectNamesProvider: Provider<String> = syncMkdocsSources.map { it.getProjectNames() }
 
 val renderDockerfile = tasks.register<RenderTemplateFile>("renderDockerfile") {
     template.set(DockerfileTemplate.template)

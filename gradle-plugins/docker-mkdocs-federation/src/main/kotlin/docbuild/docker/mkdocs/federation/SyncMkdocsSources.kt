@@ -5,6 +5,7 @@ import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileSystemOperations
 import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.gradle.work.DisableCachingByDefault
@@ -36,5 +37,11 @@ abstract class SyncMkdocsSources @Inject constructor(private val fsOps: FileSyst
                 into(outputDir.get().dir("$projectName-mkdocs"))
             }
         }
+    }
+
+    @Internal
+    fun getProjectNames(): String {
+        return outputDir.get().asFile.listFiles()?.toList()
+            ?.joinToString(",") { f -> f.name.dropLast("-mkdocs".length) } ?: ""
     }
 }
