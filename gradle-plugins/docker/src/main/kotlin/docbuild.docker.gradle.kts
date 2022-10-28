@@ -18,7 +18,7 @@ dockerAppContainer.all {
         t.set("${imageName.get()}:latest")
     }
 
-    tasks.register<Shell>("dockerUp${imageName.get().capitalize()}") {
+    val dockerUp = tasks.register<Shell>("dockerUp${imageName.get().capitalize()}") {
         group = dockerTaskGroup
         description = "Build the docker image and run a local container with it."
         dependsOn(dockerBuild)
@@ -27,9 +27,16 @@ dockerAppContainer.all {
         })
     }
 
-    tasks.register<Shell>("dockerDown${imageName.get().capitalize()}") {
+    val dockerDown = tasks.register<Shell>("dockerDown${imageName.get().capitalize()}") {
         group = dockerTaskGroup
         description = "Bring down the local container."
         cmd.set(providers.provider { listOf("docker", "rm", "-f", containerName.get()) })
+    }
+
+    tasks.register<Shell>("dockerRestart${imageName.get().capitalize()}") {
+        group = dockerTaskGroup
+        description = "Stop and then restart the local container."
+        dependsOn(dockerDown)
+        cmd.set(dockerUp.flatMap { it.cmd })
     }
 }
