@@ -22,6 +22,10 @@ http {
     server {
         listen 8080;
         listen [::]:8080;
+        
+        location = / {
+            try_files ${"\$uri"} ${"\$uri/"} /index.html;
+        }
 
         $locationLines
     }

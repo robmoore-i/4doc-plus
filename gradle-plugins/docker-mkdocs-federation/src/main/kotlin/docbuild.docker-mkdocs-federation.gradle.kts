@@ -51,4 +51,5 @@ tasks.named<DockerBuild>("dockerBuildDocs") {
     dockerfile.set(renderDockerfile.flatMap { it.outputFile })
     resources.from(renderNginxConf.flatMap { it.outputFile })
     resources.from(syncMkdocsSources.flatMap { it.outputDir })
+    resources.from(layout.projectDirectory.file("root-index.html"))
 }
