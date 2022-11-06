@@ -3,6 +3,7 @@ package docbuild.docker.mkdocs.federation
 object NginxConfTemplate {
 
     private const val locationLines = "#{LOCATION_LINES}"
+    private const val uri = "\$uri"
 
     fun render(template: String, projectNames: List<String>): String {
         return template
@@ -24,7 +25,7 @@ http {
         listen [::]:8080;
         
         location = / {
-            try_files ${"\$uri"} ${"\$uri/"} /index.html;
+            try_files $uri $uri/ /index.html;
         }
 
         $locationLines
