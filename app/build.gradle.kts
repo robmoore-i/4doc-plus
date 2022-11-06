@@ -12,5 +12,5 @@ dependencies {
 }
 
 flyApps {
-    register("docs")
+    register("rob-docs")
 }

@@ -20,8 +20,13 @@ abstract class FlyDeploy @Inject constructor(private val execOps: ExecOperations
     @TaskAction
     fun deploy() {
         execOps.exec {
-            commandLine("fly", "deploy", "--app", appName.get(), "--image", image.get())
+            commandLine(
+                "fly", "deploy",
+                "--app", appName.get(),
+                "--image", image.get(),
+                "--local-only", "--now", "--auto-confirm"
+            )
         }.assertNormalExitValue()
-        logger.lifecycle("Deployed {} using image {}", appName.get(), image.get())
+        logger.lifecycle("Deployed '{}' using image '{}'.", appName.get(), image.get())
     }
 }

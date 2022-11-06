@@ -13,4 +13,5 @@ repositories {
 
 dependencies {
     implementation(project(":shell"))
+    implementation("com.google.guava:guava:31.1-jre")
 }

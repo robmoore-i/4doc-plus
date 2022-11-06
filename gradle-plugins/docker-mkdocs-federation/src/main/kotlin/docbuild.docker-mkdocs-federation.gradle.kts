@@ -11,7 +11,7 @@ plugins {
 }
 
 dockerApps {
-    register("docs")
+    register("rob-docs")
 }
 
 val mkdocsSources: Configuration by configurations.creating {
@@ -47,7 +47,7 @@ val renderNginxConf = tasks.register<RenderTemplateFile>("renderNginxConf") {
     }
 }
 
-tasks.named<DockerBuild>("dockerBuildDocs") {
+tasks.withType<DockerBuild> {
     dockerfile.set(renderDockerfile.flatMap { it.outputFile })
     resources.from(renderNginxConf.flatMap { it.outputFile })
     resources.from(syncMkdocsSources.flatMap { it.outputDir })
